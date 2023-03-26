@@ -1,11 +1,10 @@
-package com.blackwhissh.student;
+package com.blackwhissh.student.service;
 
-import org.aspectj.bridge.Message;
+import com.blackwhissh.student.model.Student;
+import com.blackwhissh.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +51,16 @@ public class StudentService {
             studentRepository.deleteById(studentId);
 
             System.out.println("Student with ID - " + studentId + " has been successfully deleted");
+        }
+    }
+
+    public Optional<Student> getStudent(Long studentId) {
+        boolean exists = studentRepository.existsById(studentId);
+        if(!exists){
+            throw new IllegalStateException("Student with provided ID (" + studentId + ") doesn't exists");
+        }else{
+            return studentRepository.findById(studentId);
+
         }
     }
 }

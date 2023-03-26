@@ -1,11 +1,12 @@
-package com.blackwhissh.student;
+package com.blackwhissh.student.config;
 
+import com.blackwhissh.student.model.Student;
+import com.blackwhissh.student.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 import static java.util.Calendar.MAY;

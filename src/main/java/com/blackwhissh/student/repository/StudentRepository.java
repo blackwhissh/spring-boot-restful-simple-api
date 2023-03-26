@@ -1,5 +1,6 @@
-package com.blackwhissh.student;
+package com.blackwhissh.student.repository;
 
+import com.blackwhissh.student.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

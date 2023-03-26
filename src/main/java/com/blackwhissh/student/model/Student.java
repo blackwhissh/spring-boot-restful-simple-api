@@ -1,4 +1,4 @@
-package com.blackwhissh.student;
+package com.blackwhissh.student.model;
 
 import jakarta.persistence.*;
 

@@ -2,14 +2,18 @@ package com.blackwhissh.student.service;
 
 import com.blackwhissh.student.model.Student;
 import com.blackwhissh.student.repository.StudentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class StudentService {
+
+
 
     private final StudentRepository studentRepository;
 
@@ -17,6 +21,8 @@ public class StudentService {
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
+
+
 
     public List<Student> getStudents(){
         return studentRepository.findAll();
@@ -62,5 +68,29 @@ public class StudentService {
             return studentRepository.findById(studentId);
 
         }
+    }
+
+    @Transactional
+    public void updateStudent(Long studentId, String name, String email) {
+
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("Student with provided ID (" + studentId
+                        + ") doesn't exists"));
+
+        if(name !=null && name.length() > 0 && !Objects.equals(student.getName(), name)){
+            student.setName(name);
+            studentRepository.save(student);
+        }
+
+        if(email !=null && email.length() > 0 && !Objects.equals(student.getEmail(), email)){
+            Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
+            if(studentOptional.isPresent()){
+                throw new IllegalStateException("E-Mail is taken!");
+            }
+            student.setEmail(email);
+
+            studentRepository.save(student);
+        }
+
     }
 }
